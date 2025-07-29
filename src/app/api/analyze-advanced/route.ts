@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     let savedId = null
     try {
       const client = await clientPromise
-      const db = client.db('resume-analyzer-pro')
+      const db = client.db('resume-analyzer')
       const collection = db.collection('analyses')
 
       const document = {
