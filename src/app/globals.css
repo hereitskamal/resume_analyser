@@ -1,26 +1,283 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply box-border;
+  }
+  
+  body {
+    @apply font-sans bg-white min-h-screen antialiased;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn-primary {
+    @apply bg-gray-900 text-white border-none py-3 px-6 rounded-lg cursor-pointer font-light text-sm transition-all duration-200 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-gray-700 border border-gray-200 py-3 px-6 rounded-lg cursor-pointer font-light text-sm transition-all duration-200 hover:border-gray-300 hover:bg-gray-50;
+  }
+
+  .card {
+    @apply bg-white rounded-lg p-8 border border-gray-100 mb-8;
+  }
+
+  .upload-area {
+    @apply border-2 border-dashed border-gray-200 rounded-lg p-12 text-center transition-all duration-300 cursor-pointer hover:border-gray-400 hover:bg-gray-50;
+  }
+
+  .score-circle {
+    @apply w-20 h-20 rounded-full border-4 border-gray-100 flex items-center justify-center text-xl font-light text-gray-900 mx-auto mb-4;
+  }
+
+  .score-excellent { @apply border-gray-900; }
+  .score-good { @apply border-gray-700; }
+  .score-average { @apply border-gray-500; }
+  .score-poor { @apply border-gray-300; }
+
+  .spinner {
+    @apply border-2 border-gray-200 border-t-gray-900 rounded-full w-6 h-6 animate-spin;
+  }
+
+  .analysis-section {
+    @apply bg-gray-50 rounded-lg p-6 border-l-2 border-gray-100 transition-all duration-200 hover:border-gray-200;
+  }
+
+  .analysis-section.strengths { @apply border-l-gray-900; }
+  .analysis-section.improvements { @apply border-l-gray-600; }
+  .analysis-section.missing { @apply border-l-gray-400; }
+  .analysis-section.ats { @apply border-l-gray-700; }
+
+  /* Additional minimal components */
+  .text-light {
+    @apply font-light;
+  }
+
+  .text-medium {
+    @apply font-medium;
+  }
+
+  .border-minimal {
+    @apply border border-gray-100;
+  }
+
+  .hover-minimal {
+    @apply hover:border-gray-200 transition-colors;
+  }
+
+  .bg-minimal {
+    @apply bg-gray-50;
+  }
+
+  .rounded-minimal {
+    @apply rounded-lg;
+  }
+
+  /* Progress bar minimal style */
+  .progress-bar {
+    @apply w-full bg-gray-100 rounded-full h-1;
+  }
+
+  .progress-fill {
+    @apply h-1 rounded-full bg-gray-900 transition-all duration-1000;
+  }
+
+  /* Tab navigation minimal */
+  .tab-nav {
+    @apply border-b border-gray-100;
+  }
+
+  .tab-button {
+    @apply py-4 px-1 border-b-2 border-transparent font-light text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 transition-colors;
+  }
+
+  .tab-button.active {
+    @apply border-gray-900 text-gray-900;
+  }
+
+  /* Form elements minimal */
+  .input-minimal {
+    @apply w-full p-3 border border-gray-200 rounded-lg focus:ring-1 focus:ring-gray-900 focus:border-gray-900 text-sm font-light;
+  }
+
+  .textarea-minimal {
+    @apply w-full p-3 border border-gray-200 rounded-lg focus:ring-1 focus:ring-gray-900 focus:border-gray-900 resize-none text-sm font-light;
+  }
+
+  .select-minimal {
+    @apply w-full p-3 border border-gray-200 rounded-lg focus:ring-1 focus:ring-gray-900 focus:border-gray-900 text-sm font-light;
+  }
+
+  /* Keyword tags minimal */
+  .keyword-tag {
+    @apply inline-block px-3 py-1 rounded-full text-sm font-light mr-2 mb-2 transition-colors;
+  }
+
+  .keyword-tag.present {
+    @apply bg-gray-100 text-gray-700;
+  }
+
+  .keyword-tag.missing {
+    @apply border border-gray-200 text-gray-600 hover:border-gray-300 cursor-pointer;
+  }
+
+  .keyword-tag.suggested {
+    @apply bg-gray-900 text-white hover:bg-gray-800 cursor-pointer;
+  }
+
+  /* Section status indicators */
+  .status-dot {
+    @apply w-2 h-2 rounded-full;
+  }
+
+  .status-dot.present {
+    @apply bg-green-500;
+  }
+
+  .status-dot.missing {
+    @apply bg-red-500;
+  }
+
+  /* Recommendation cards minimal */
+  .recommendation-card {
+    @apply border rounded-lg p-4 transition-colors;
+  }
+
+  .recommendation-card.critical {
+    @apply border-red-200 bg-red-50;
+  }
+
+  .recommendation-card.important {
+    @apply border-orange-200 bg-orange-50;
+  }
+
+  .recommendation-card.enhancement {
+    @apply border-blue-200 bg-blue-50;
+  }
+
+  /* Loading states */
+  .loading-container {
+    @apply min-h-screen bg-white flex items-center justify-center;
+  }
+
+  .loading-content {
+    @apply text-center;
+  }
+
+  .loading-text {
+    @apply text-gray-600 font-light;
+  }
+
+  /* Navigation minimal */
+  .nav-minimal {
+    @apply border-b border-gray-100;
+  }
+
+  .nav-link {
+    @apply text-sm text-gray-600 hover:text-gray-900 font-light transition-colors px-3 py-2 rounded-lg hover:bg-gray-100;
+  }
+
+  .nav-brand {
+    @apply text-xl font-light text-gray-900 hover:text-gray-700 transition-colors;
+  }
+
+  /* Footer minimal */
+  .footer-minimal {
+    @apply border-t border-gray-100 py-8 mt-12;
+  }
+
+  .footer-link {
+    @apply text-gray-600 hover:text-gray-900 transition-colors font-light;
+  }
+
+  /* Error states */
+  .error-container {
+    @apply p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm;
+  }
+
+  .error-button {
+    @apply ml-auto float-right text-red-500 hover:text-red-700 cursor-pointer;
+  }
+
+  /* Success states */
+  .success-container {
+    @apply p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm;
+  }
+
+  /* Utility classes for consistent spacing */
+  .section-spacing {
+    @apply space-y-12;
+  }
+
+  .content-max-width {
+    @apply max-w-4xl mx-auto;
+  }
+
+  .grid-minimal {
+    @apply grid gap-8;
+  }
+
+  .grid-2 {
+    @apply grid-cols-1 md:grid-cols-2;
+  }
+
+  .grid-3 {
+    @apply grid-cols-1 md:grid-cols-3;
+  }
+
+  /* Animation utilities */
+  .fade-in {
+    @apply opacity-0 animate-pulse;
+  }
+
+  .slide-up {
+    @apply transform translate-y-4 opacity-0;
+  }
+
+  /* Responsive text sizes */
+  .text-hero {
+    @apply text-4xl font-light;
+  }
+
+  .text-section {
+    @apply text-2xl font-light;
+  }
+
+  .text-subsection {
+    @apply text-xl font-light;
+  }
+
+  .text-body {
+    @apply text-base font-light;
+  }
+
+  .text-caption {
+    @apply text-sm font-light text-gray-500;
+  }
+}
+
+/* Custom scrollbar for minimal design */
+@layer utilities {
+  .scrollbar-minimal {
+    scrollbar-width: thin;
+    scrollbar-color: #e5e7eb #f9fafb;
+  }
+
+  .scrollbar-minimal::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-minimal::-webkit-scrollbar-track {
+    background: #f9fafb;
+  }
+
+  .scrollbar-minimal::-webkit-scrollbar-thumb {
+    background: #e5e7eb;
+    border-radius: 2px;
+  }
+
+  .scrollbar-minimal::-webkit-scrollbar-thumb:hover {
+    background: #d1d5db;
+  }
 }
